@@ -40,13 +40,13 @@
 
     <h2>Adicionar Produto</h2>
     <div class="bloco">
-      <input id="produtoNome" type="text" placeholder="Produto / Modelo" />
-      <input id="produtoValor" type="text" placeholder="Valor unitário - Tabela" />
+      <input id="produtoNome" type="text" placeholder="Produto / Modelo (Exemplo Amassadeira 25T)" />
+      <input id="produtoValor" type="text" placeholder="Valor unitário (Normalmente Tabela)" />
       <input id="produtoQtd" type="number" min="1" value="1" placeholder="Quantidade" />
       <input id="produtoDesconto" type="text" placeholder="% Desconto sem considerar forma de pagamento  " />
       <input id="produtoVista" type="text" placeholder="Valor final" />
       <input id="produtoObs" type="text" placeholder="Observação exemplo Mono/Trifasica" />
-      <input id="produtoPrazo" type="text" placeholder="Prazo de entrega" />
+      <input id="produtoPrazo" type="text" placeholder="Prazo de entrega (Pronta entrega, 2 meses, etc)" />
       <button id="addProduto" type="button">Adicionar produto</button>
     </div>
 
@@ -67,7 +67,7 @@
       <tbody></tbody>
     </table>
 
-  <h2>Formas de pagamento</h2>
+<h2>Formas de pagamento</h2>
 
 <div class="bloco">
   <select id="quantidadePagamentos">
@@ -77,89 +77,100 @@
   </select>
 </div>
 
-<div id="pagamento1" class="pagamento-box">
-  <h3>Pagamento 1</h3>
+<div class="pagamentos-grid">
 
-<div class="grid-pagamento">
-  <div class="campo">
-    <label>Título</label>
-    <input id="pag1Titulo" type="text" value="Pagamento à vista" />
+  <!-- PAGAMENTO 1 -->
+  <div id="pagamento1" class="pagamento-box">
+    <h3>Pagamento 1</h3>
+
+    <div class="grid-pagamento">
+      <div class="campo campo-largo">
+        <label>Título</label>
+        <input id="pag1Titulo" type="text" value="Pagamento à vista" />
+      </div>
+
+      <div class="campo">
+        <label>Desconto adicional (%)</label>
+        <input id="pag1DescontoAdicional" type="number" value="10" />
+      </div>
+
+      <div class="campo">
+        <label>Entrada (%)</label>
+        <input id="pag1EntradaPercentual" type="number" value="100" />
+      </div>
+
+      <div class="campo">
+        <label>Número de parcelas</label>
+        <input id="pag1NumeroParcelas" type="number" value="0" />
+      </div>
+    </div>
+
+    <div class="resumo-pagamento" id="resumoPag1"></div>
   </div>
 
-  <div class="campo">
-    <label>Desconto adicional (%)</label>
-    <input id="pag1DescontoAdicional" type="number" min="0" max="100" value="10" />
+  <!-- PAGAMENTO 2 -->
+  <div id="pagamento2" class="pagamento-box" style="display:none;">
+    <h3>Pagamento 2</h3>
+
+    <div class="grid-pagamento">
+      <div class="campo campo-largo">
+        <label>Título</label>
+        <input id="pag2Titulo" type="text" value="Boleto" />
+      </div>
+
+      <div class="campo">
+        <label>Desconto adicional (%)</label>
+        <input id="pag2DescontoAdicional" type="number" value="0" />
+      </div>
+
+      <div class="campo">
+        <label>Entrada (%)</label>
+        <input id="pag2EntradaPercentual" type="number" value="30" />
+      </div>
+
+      <div class="campo">
+        <label>Número de parcelas</label>
+        <input id="pag2NumeroParcelas" type="number" value="4" />
+      </div>
+    </div>
+
+    <div class="resumo-pagamento" id="resumoPag2"></div>
   </div>
 
-  <div class="campo">
-    <label>Entrada (%)</label>
-    <input id="pag1EntradaPercentual" type="number" min="0" max="100" value="100" />
+  <!-- PAGAMENTO 3 -->
+  <div id="pagamento3" class="pagamento-box" style="display:none;">
+    <h3>Pagamento 3</h3>
+
+    <div class="grid-pagamento">
+      <div class="campo campo-largo">
+        <label>Título</label>
+        <input id="pag3Titulo" type="text" value="Cartão de Crédito" />
+      </div>
+
+      <div class="campo">
+        <label>Desconto adicional (%)</label>
+        <input id="pag3DescontoAdicional" type="number" value="0" />
+      </div>
+
+      <div class="campo">
+        <label>Entrada (%)</label>
+        <input id="pag3EntradaPercentual" type="number" value="50" />
+      </div>
+
+      <div class="campo">
+        <label>Número de parcelas</label>
+        <input id="pag3NumeroParcelas" type="number" value="6" />
+      </div>
+    </div>
+
+    <div class="resumo-pagamento" id="resumoPag3"></div>
   </div>
 
-  <div class="campo">
-    <label>Número de parcelas</label>
-    <input id="pag1NumeroParcelas" type="number" min="0" value="0" />
-  </div>
-
-  <div class="resumo-pagamento" id="resumoPag1"></div>
-</div>
-<div class="grid-pagamento">
-<div id="pagamento2" class="pagamento-box" style="display:none;">
-  <h3>Pagamento 2</h3>
-
-  <div class="campo">
-    <label>Título</label>
-    <input id="pag2Titulo" type="text" value="Boleto" />
-  </div>
-
-  <div class="campo">
-    <label>Desconto adicional (%)</label>
-    <input id="pag2DescontoAdicional" type="number" min="0" max="100" value="0" />
-  </div>
-
-  <div class="campo">
-    <label>Entrada (%)</label>
-    <input id="pag2EntradaPercentual" type="number" min="0" max="100" value="30" />
-  </div>
-
-  <div class="campo">
-    <label>Número de parcelas</label>
-    <input id="pag2NumeroParcelas" type="number" min="0" value="4" />
-  </div>
-
-  <div class="resumo-pagamento" id="resumoPag2"></div>
-</div>
-<div class="grid-pagamento">
-<div id="pagamento3" class="pagamento-box" style="display:none;">
-  <h3>Pagamento 3</h3>
-
-  <div class="campo">
-    <label>Título</label>
-    <input id="pag3Titulo" type="text" value="Cartão de Crédito" />
-  </div>
-
-  <div class="campo">
-    <label>Desconto adicional (%)</label>
-    <input id="pag3DescontoAdicional" type="number" min="0" max="100" value="0" />
-  </div>
-
-  <div class="campo">
-    <label>Entrada (%)</label>
-    <input id="pag3EntradaPercentual" type="number" min="0" max="100" value="50" />
-  </div>
-
-  <div class="campo">
-    <label>Número de parcelas</label>
-    <input id="pag3NumeroParcelas" type="number" min="0" value="6" />
-  </div>
-
-  <div class="resumo-pagamento" id="resumoPag3"></div>
 </div>
 
 <div class="acoes">
   <button id="gerarWord" type="button">Gerar Word</button>
 </div>
-
 </div>
 
   <script src="https://unpkg.com/pizzip@3.1.8/dist/pizzip.min.js"></script>

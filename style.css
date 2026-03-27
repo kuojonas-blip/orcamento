@@ -151,4 +151,50 @@ table th {
   border-top: 1px solid #e3e3e3;
   font-size: 15px;
   line-height: 1.4;
+}.pagamentos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.pagamento-box {
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  background: #fafafa;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.grid-pagamento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 18px;
+  align-items: end;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.campo input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.resumo-pagamento {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid #e3e3e3;
+  font-size: 15px;
+  line-height: 1.4;
 }
