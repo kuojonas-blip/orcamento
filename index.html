@@ -17,9 +17,9 @@
     <h2>Dados do Cliente</h2>
     <div class="bloco">
       <input id="clienteNome" type="text" placeholder="Nome / Razão Social" />
-      <input id="clienteContato" type="text" placeholder="Contato" />
+      <input id="clienteContato" type="text" placeholder="Nome do Contato" />
       <input id="clienteDoc" type="text" placeholder="CPF / CNPJ" />
-      <input id="clienteEndereco" type="text" placeholder="Endereço" />
+      <input id="clienteEndereco" type="text" placeholder="Endereço completo (Número, Bairro, Cidade, Estado)" />
       <input id="clienteEmail" type="text" placeholder="E-mail" />
       <input id="clienteTelefone" type="text" placeholder="Telefone" />
     </div>
@@ -41,9 +41,9 @@
     <h2>Adicionar Produto</h2>
     <div class="bloco">
       <input id="produtoNome" type="text" placeholder="Produto / Modelo" />
-      <input id="produtoValor" type="text" placeholder="Valor unitário" />
+      <input id="produtoValor" type="text" placeholder="Valor unitário - Tabela" />
       <input id="produtoQtd" type="number" min="1" value="1" placeholder="Quantidade" />
-      <input id="produtoDesconto" type="text" placeholder="Desconto sem considerar forma de pagamento  " />
+      <input id="produtoDesconto" type="text" placeholder="% Desconto sem considerar forma de pagamento  " />
       <input id="produtoVista" type="text" placeholder="Valor final" />
       <input id="produtoObs" type="text" placeholder="Observação exemplo Mono/Trifasica" />
       <input id="produtoPrazo" type="text" placeholder="Prazo de entrega" />
@@ -80,6 +80,7 @@
 <div id="pagamento1" class="pagamento-box">
   <h3>Pagamento 1</h3>
 
+<div class="grid-pagamento">
   <div class="campo">
     <label>Título</label>
     <input id="pag1Titulo" type="text" value="Pagamento à vista" />
@@ -102,7 +103,7 @@
 
   <div class="resumo-pagamento" id="resumoPag1"></div>
 </div>
-
+<div class="grid-pagamento">
 <div id="pagamento2" class="pagamento-box" style="display:none;">
   <h3>Pagamento 2</h3>
 
@@ -128,7 +129,7 @@
 
   <div class="resumo-pagamento" id="resumoPag2"></div>
 </div>
-
+<div class="grid-pagamento">
 <div id="pagamento3" class="pagamento-box" style="display:none;">
   <h3>Pagamento 3</h3>
 
