@@ -8,12 +8,16 @@
 </head>
 <body>
   <div class="container">
+    <div class="topo-logo">
+  <img src="logo.png" alt="Sinmag Brasil" class="logo-sinmag" />
+</div>
+
     <h1>Gerador de Orçamento Sinmag</h1>
 
     <h2>Dados do Cliente</h2>
     <div class="bloco">
       <input id="clienteNome" type="text" placeholder="Nome / Razão Social" />
-      <input id="clienteContato" type="text" placeholder="A/C" />
+      <input id="clienteContato" type="text" placeholder="Contato" />
       <input id="clienteDoc" type="text" placeholder="CPF / CNPJ" />
       <input id="clienteEndereco" type="text" placeholder="Endereço" />
       <input id="clienteEmail" type="text" placeholder="E-mail" />
@@ -39,9 +43,9 @@
       <input id="produtoNome" type="text" placeholder="Produto / Modelo" />
       <input id="produtoValor" type="text" placeholder="Valor unitário" />
       <input id="produtoQtd" type="number" min="1" value="1" placeholder="Quantidade" />
-      <input id="produtoDesconto" type="text" placeholder="Desconto (%)" />
+      <input id="produtoDesconto" type="text" placeholder="Desconto sem considerar forma de pagamento  " />
       <input id="produtoVista" type="text" placeholder="Valor final" />
-      <input id="produtoObs" type="text" placeholder="Observação" />
+      <input id="produtoObs" type="text" placeholder="Observação exemplo Mono/Trifasica" />
       <input id="produtoPrazo" type="text" placeholder="Prazo de entrega" />
       <button id="addProduto" type="button">Adicionar produto</button>
     </div>
@@ -63,57 +67,102 @@
       <tbody></tbody>
     </table>
 
-    <h2>Formas de pagamento</h2>
+  <h2>Formas de pagamento</h2>
 
-    <div class="bloco">
-      <select id="quantidadePagamentos">
-        <option value="1">1 forma de pagamento</option>
-        <option value="2">2 formas de pagamento</option>
-        <option value="3">3 formas de pagamento</option>
-      </select>
-    </div>
+<div class="bloco">
+  <select id="quantidadePagamentos">
+    <option value="1">1 forma de pagamento</option>
+    <option value="2">2 formas de pagamento</option>
+    <option value="3">3 formas de pagamento</option>
+  </select>
+</div>
 
-    <div id="pagamento1" class="pagamento-box">
-      <h3>Pagamento 1</h3>
-      <div class="bloco">
-        <input id="pag1Titulo" type="text" placeholder="Título" value="Pagamento à vista" />
-        <input id="pag1EntradaPercentual" type="number" min="0" max="100" placeholder="Entrada (%)" value="100" />
-        <input id="pag1NumeroParcelas" type="number" min="0" placeholder="Número de parcelas" value="0" />
-      </div>
-      <div class="resumo-pagamento" id="resumoPag1"></div>
-    </div>
+<div id="pagamento1" class="pagamento-box">
+  <h3>Pagamento 1</h3>
 
-    <div id="pagamento2" class="pagamento-box" style="display:none;">
-      <h3>Pagamento 2</h3>
-      <div class="bloco">
-        <input id="pag2Titulo" type="text" placeholder="Título" value="Boleto" />
-        <input id="pag2EntradaPercentual" type="number" min="0" max="100" placeholder="Entrada (%)" value="30" />
-        <input id="pag2NumeroParcelas" type="number" min="0" placeholder="Número de parcelas" value="4" />
-      </div>
-      <div class="resumo-pagamento" id="resumoPag2"></div>
-    </div>
-
-    <div id="pagamento3" class="pagamento-box" style="display:none;">
-      <h3>Pagamento 3</h3>
-      <div class="bloco">
-        <input id="pag3Titulo" type="text" placeholder="Título" value="Cartão de Crédito" />
-        <input id="pag3EntradaPercentual" type="number" min="0" max="100" placeholder="Entrada (%)" value="50" />
-        <input id="pag3NumeroParcelas" type="number" min="0" placeholder="Número de parcelas" value="6" />
-      </div>
-      <div class="resumo-pagamento" id="resumoPag3"></div>
-    </div>
-
-    <div class="acoes">
-      <button id="gerarWord" type="button">Gerar Word</button>
+  <div class="campo">
+    <label>Título</label>
+    <input id="pag1Titulo" type="text" value="Pagamento à vista" />
   </div>
 
-  <div id="previewPDF" style="display:none; background:white; padding:30px; width:210mm; min-height:297mm;">
-  <div id="pdfConteudo"></div>
+  <div class="campo">
+    <label>Desconto adicional (%)</label>
+    <input id="pag1DescontoAdicional" type="number" min="0" max="100" value="10" />
+  </div>
+
+  <div class="campo">
+    <label>Entrada (%)</label>
+    <input id="pag1EntradaPercentual" type="number" min="0" max="100" value="100" />
+  </div>
+
+  <div class="campo">
+    <label>Número de parcelas</label>
+    <input id="pag1NumeroParcelas" type="number" min="0" value="0" />
+  </div>
+
+  <div class="resumo-pagamento" id="resumoPag1"></div>
+</div>
+
+<div id="pagamento2" class="pagamento-box" style="display:none;">
+  <h3>Pagamento 2</h3>
+
+  <div class="campo">
+    <label>Título</label>
+    <input id="pag2Titulo" type="text" value="Boleto" />
+  </div>
+
+  <div class="campo">
+    <label>Desconto adicional (%)</label>
+    <input id="pag2DescontoAdicional" type="number" min="0" max="100" value="0" />
+  </div>
+
+  <div class="campo">
+    <label>Entrada (%)</label>
+    <input id="pag2EntradaPercentual" type="number" min="0" max="100" value="30" />
+  </div>
+
+  <div class="campo">
+    <label>Número de parcelas</label>
+    <input id="pag2NumeroParcelas" type="number" min="0" value="4" />
+  </div>
+
+  <div class="resumo-pagamento" id="resumoPag2"></div>
+</div>
+
+<div id="pagamento3" class="pagamento-box" style="display:none;">
+  <h3>Pagamento 3</h3>
+
+  <div class="campo">
+    <label>Título</label>
+    <input id="pag3Titulo" type="text" value="Cartão de Crédito" />
+  </div>
+
+  <div class="campo">
+    <label>Desconto adicional (%)</label>
+    <input id="pag3DescontoAdicional" type="number" min="0" max="100" value="0" />
+  </div>
+
+  <div class="campo">
+    <label>Entrada (%)</label>
+    <input id="pag3EntradaPercentual" type="number" min="0" max="100" value="50" />
+  </div>
+
+  <div class="campo">
+    <label>Número de parcelas</label>
+    <input id="pag3NumeroParcelas" type="number" min="0" value="6" />
+  </div>
+
+  <div class="resumo-pagamento" id="resumoPag3"></div>
+</div>
+
+<div class="acoes">
+  <button id="gerarWord" type="button">Gerar Word</button>
+</div>
+
 </div>
 
   <script src="https://unpkg.com/pizzip@3.1.8/dist/pizzip.min.js"></script>
   <script src="https://unpkg.com/docxtemplater@3.46.0/build/docxtemplater.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

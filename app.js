@@ -2,6 +2,7 @@ const produtos = [];
 
 const botaoAdicionar = document.getElementById("addProduto");
 const botaoGerarWord = document.getElementById("gerarWord");
+const botaoGerarPDF = document.getElementById("gerarPDF");
 const selectQuantidadePagamentos = document.getElementById("quantidadePagamentos");
 
 // =======================
@@ -209,9 +210,9 @@ function formatarDataExtenso(data) {
 selectQuantidadePagamentos.addEventListener("change", atualizarVisibilidadePagamentos);
 
 [
-  "pag1Titulo", "pag1EntradaPercentual", "pag1NumeroParcelas",
-  "pag2Titulo", "pag2EntradaPercentual", "pag2NumeroParcelas",
-  "pag3Titulo", "pag3EntradaPercentual", "pag3NumeroParcelas"
+  "pag1Titulo", "pag1EntradaPercentual", "pag1NumeroParcelas", "pag1DescontoAdicional",
+  "pag2Titulo", "pag2EntradaPercentual", "pag2NumeroParcelas", "pag2DescontoAdicional",
+  "pag3Titulo", "pag3EntradaPercentual", "pag3NumeroParcelas", "pag3DescontoAdicional"
 ].forEach(function (id) {
   const el = document.getElementById(id);
   if (el) {
@@ -239,18 +240,25 @@ function montarPagamento(numero) {
   const titulo = document.getElementById(`pag${numero}Titulo`).value.trim();
   const entradaPct = Number(document.getElementById(`pag${numero}EntradaPercentual`).value || 0);
   const parcelas = Number(document.getElementById(`pag${numero}NumeroParcelas`).value || 0);
+  const descontoAdicionalPct = Number(document.getElementById(`pag${numero}DescontoAdicional`).value || 0);
 
-  const total = calcularTotalProdutos();
-  const entrada = total * (entradaPct / 100);
-  const saldo = total - entrada;
+  const totalBase = calcularTotalProdutos();
+  const valorDescontoAdicional = totalBase * (descontoAdicionalPct / 100);
+  const totalComDesconto = totalBase - valorDescontoAdicional;
+
+  const entrada = totalComDesconto * (entradaPct / 100);
+  const saldo = totalComDesconto - entrada;
   const valorParcela = parcelas > 0 ? saldo / parcelas : 0;
 
   return {
     TITULO: titulo,
+    DESCONTO_ADICIONAL_PERCENTUAL: `${descontoAdicionalPct}%`,
+    DESCONTO_ADICIONAL_VALOR: formatarMoeda(valorDescontoAdicional),
+    TOTAL_BASE: formatarMoeda(totalBase),
+    TOTAL_COM_DESCONTO: formatarMoeda(totalComDesconto),
     ENTRADA_PERCENTUAL: `${entradaPct}%`,
     ENTRADA_VALOR: formatarMoeda(entrada),
-    PARCELAS_TEXTO: parcelas > 0 ? `${parcelas}x de ${formatarMoeda(valorParcela)}` : "Sem parcelas",
-    TOTAL: formatarMoeda(total)
+    PARCELAS_TEXTO: parcelas > 0 ? `${parcelas}x de ${formatarMoeda(valorParcela)}` : "Sem parcelas"
   };
 }
 
@@ -269,7 +277,9 @@ function atualizarResumosPagamentos() {
     const pagamento = montarPagamento(i);
 
     el.innerHTML = `
-      <strong>Total:</strong> ${pagamento.TOTAL}<br>
+      <strong>Total base:</strong> ${pagamento.TOTAL_BASE}<br>
+      <strong>Desconto adicional:</strong> ${pagamento.DESCONTO_ADICIONAL_VALOR} (${pagamento.DESCONTO_ADICIONAL_PERCENTUAL})<br>
+      <strong>Total com desconto:</strong> ${pagamento.TOTAL_COM_DESCONTO}<br>
       <strong>Entrada:</strong> ${pagamento.ENTRADA_VALOR} (${pagamento.ENTRADA_PERCENTUAL})<br>
       <strong>Parcelas:</strong> ${pagamento.PARCELAS_TEXTO}
     `;
@@ -484,7 +494,6 @@ if (botaoGerarPDF) {
 
     conteudo.innerHTML = montarHtmlOrcamento();
 
-    // 🔥 MOSTRA TEMPORARIAMENTE (ESSENCIAL)
     preview.style.display = "block";
     preview.style.position = "relative";
     preview.style.opacity = "1";
@@ -510,7 +519,7 @@ if (botaoGerarPDF) {
         .then(() => {
           preview.style.display = "none";
         });
-    }, 500); // 🔥 TEMPO MAIOR = GARANTE RENDER
+    }, 500);
   });
 }
 

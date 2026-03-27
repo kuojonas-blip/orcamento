@@ -72,4 +72,83 @@ table th {
 
 .acoes {
   margin-top: 20px;
+}.topo-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo-sinmag {
+  max-width: 260px;
+  height: auto;
+}
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.campo label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
+}
+.pagamento-box {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  max-width: 320px;
+}
+
+.campo label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
+}.pagamento-box {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.grid-pagamento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 18px;
+  align-items: end;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.campo input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.resumo-pagamento {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid #e3e3e3;
+  font-size: 15px;
+  line-height: 1.4;
 }
