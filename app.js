@@ -346,7 +346,10 @@ botaoGerarWord.addEventListener("click", async function () {
 
     doc.render();
 
-    const blob = doc.getZip().generate({ type: "blob" });
+    const blob = doc.getZip().generate({
+  type: "blob",
+  mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+});
     saveBlob(blob, montarNomeArquivo("docx"));
 
   } catch (erro) {
@@ -530,9 +533,11 @@ if (botaoGerarPDF) {
 // =======================
 function saveBlob(blob, nome) {
   const url = window.URL.createObjectURL(blob);
+
   const a = document.createElement("a");
   a.href = url;
   a.download = nome;
+
   document.body.appendChild(a);
   a.click();
 
