@@ -529,10 +529,16 @@ if (botaoGerarPDF) {
 // DOWNLOAD
 // =======================
 function saveBlob(blob, nome) {
+  const url = window.URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
+  a.href = url;
   a.download = nome;
+  document.body.appendChild(a);
   a.click();
-}
 
+  setTimeout(() => {
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }, 1000);
+}
 atualizarVisibilidadePagamentos();
