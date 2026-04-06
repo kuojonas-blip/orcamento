@@ -338,6 +338,7 @@ botaoGerarWord.addEventListener("click", async function () {
       FRETE: document.getElementById("frete").value,
       INSTALACAO: document.getElementById("instalacao").value,
       VALIDADE: document.getElementById("validade").value,
+      OBSERVACOES_FINAIS: document.getElementById("observacoesFinais").value,
 
       VENDEDOR: document.getElementById("vendedorNome").value,
       VENDEDOR_TELEFONE: document.getElementById("vendedorTelefone").value
@@ -446,7 +447,8 @@ function montarHtmlOrcamento() {
       </table>
 
       <p><em>*Materiais referentes aos produtos serão enviados separadamente*</em></p>
-
+      <p><em>*O prazo informado é aproximado e está sujeito a alterações conforme disponibilidade de estoque, logística e outros fatores*</em></p>
+      
       <h3>TERMOS COMERCIAIS</h3>
       <p><strong>Condições de pagamento:</strong></p>
 
