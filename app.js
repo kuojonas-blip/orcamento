@@ -6,6 +6,15 @@ const botaoGerarPDF = document.getElementById("gerarPDF");
 const selectQuantidadePagamentos = document.getElementById("quantidadePagamentos");
 
 // =======================
+// MÁSCARA CEP
+// =======================
+document.getElementById("clienteCEP").addEventListener("input", function (e) {
+  let v = e.target.value.replace(/\D/g, "").slice(0, 8);
+  if (v.length > 5) v = v.slice(0, 5) + "-" + v.slice(5);
+  e.target.value = v;
+});
+
+// =======================
 // FORMATAÇÃO MOEDA INPUT
 // =======================
 function formatarCampoMoedaInput(input) {
@@ -327,7 +336,13 @@ botaoGerarWord.addEventListener("click", async function () {
       CLIENTE: document.getElementById("clienteNome").value,
       CONTATO: document.getElementById("clienteContato").value,
       CNPJ: document.getElementById("clienteDoc").value,
-      ENDERECO: document.getElementById("clienteEndereco").value,
+      ENDERECO: [
+        document.getElementById("clienteRua").value,
+        document.getElementById("clienteBairro").value,
+        document.getElementById("clienteCEP").value,
+        document.getElementById("clienteCidade").value,
+        document.getElementById("clienteEstado").value
+      ].filter(Boolean).join(", "),
       EMAIL: document.getElementById("clienteEmail").value,
       TELEFONE: document.getElementById("clienteTelefone").value,
 
@@ -346,10 +361,7 @@ botaoGerarWord.addEventListener("click", async function () {
 
     doc.render();
 
-    const blob = doc.getZip().generate({
-  type: "blob",
-  mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-});
+    const blob = doc.getZip().generate({ type: "blob" });
     saveBlob(blob, montarNomeArquivo("docx"));
 
   } catch (erro) {
@@ -368,7 +380,13 @@ function montarHtmlOrcamento() {
   const clienteNome = document.getElementById("clienteNome").value;
   const clienteContato = document.getElementById("clienteContato").value;
   const clienteDoc = document.getElementById("clienteDoc").value;
-  const clienteEndereco = document.getElementById("clienteEndereco").value;
+  const clienteEndereco = [
+    document.getElementById("clienteRua").value,
+    document.getElementById("clienteBairro").value,
+    document.getElementById("clienteCEP").value,
+    document.getElementById("clienteCidade").value,
+    document.getElementById("clienteEstado").value
+  ].filter(Boolean).join(", ");
   const clienteEmail = document.getElementById("clienteEmail").value;
   const clienteTelefone = document.getElementById("clienteTelefone").value;
 
@@ -533,11 +551,9 @@ if (botaoGerarPDF) {
 // =======================
 function saveBlob(blob, nome) {
   const url = window.URL.createObjectURL(blob);
-
   const a = document.createElement("a");
   a.href = url;
   a.download = nome;
-
   document.body.appendChild(a);
   a.click();
 
