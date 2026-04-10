@@ -89,23 +89,64 @@
 
     <div class="grid-pagamento">
       <div class="campo campo-largo">
-        <label>Título</label>
-        <input id="pag1Titulo" type="text" value="Pagamento à vista" />
+        <label>Tipo de pagamento</label>
+        <select id="pag1Titulo" onchange="aplicarPresetPagamento(1)">
+          <option value="À Vista">À Vista</option>
+          <option value="Entrada + Boleto">Entrada + Boleto</option>
+          <option value="Entrada + Cartão de Crédito">Entrada + Cartão de Crédito</option>
+          <option value="Boletos">Boletos</option>
+          <option value="Cartão de Crédito">Cartão de Crédito</option>
+        </select>
       </div>
-
       <div class="campo">
         <label>Desconto adicional (%)</label>
         <input id="pag1DescontoAdicional" type="number" value="10" />
       </div>
+    </div>
 
-      <div class="campo">
-        <label>Entrada (%)</label>
-        <input id="pag1EntradaPercentual" type="number" value="100" />
+    <!-- ENTRADA -->
+    <div class="secao-pagamento">
+      <div class="secao-pagamento-titulo">Entrada</div>
+      <div class="grid-pagamento">
+        <div class="campo">
+          <label>Percentual da entrada (%)</label>
+          <input id="pag1EntradaPercentual" type="number" value="100" min="0" max="100" />
+        </div>
+        <div class="campo">
+          <label>Forma de pagamento da entrada</label>
+          <select id="pag1EntradaForma" onchange="atualizarTaxaCartao(1, 'Entrada')">
+            <option value="Boleto">Boleto</option>
+            <option value="PIX">PIX</option>
+            <option value="Cartão de Crédito">Cartão de Crédito</option>
+          </select>
+        </div>
+        <div class="campo campo-taxa-cartao" id="pag1EntradaTaxaWrap" style="display:none;">
+          <label>Taxa cartão entrada (%)</label>
+          <input id="pag1EntradaTaxa" type="number" value="3" step="0.1" min="0" onchange="atualizarResumosPagamentos()" oninput="atualizarResumosPagamentos()" />
+        </div>
       </div>
+    </div>
 
-      <div class="campo">
-        <label>Número de parcelas</label>
-        <input id="pag1NumeroParcelas" type="number" value="0" />
+    <!-- RESTANTE -->
+    <div class="secao-pagamento">
+      <div class="secao-pagamento-titulo">Restante</div>
+      <div class="grid-pagamento">
+        <div class="campo">
+          <label>Forma de pagamento do restante</label>
+          <select id="pag1RestanteForma" onchange="atualizarTaxaCartao(1, 'Restante')">
+            <option value="Boleto">Boleto</option>
+            <option value="PIX">PIX</option>
+            <option value="Cartão de Crédito">Cartão de Crédito</option>
+          </select>
+        </div>
+        <div class="campo campo-taxa-cartao" id="pag1RestanteTaxaWrap" style="display:none;">
+          <label>Taxa cartão restante (%)</label>
+          <input id="pag1RestanteTaxa" type="number" value="3" step="0.1" min="0" onchange="atualizarResumosPagamentos()" oninput="atualizarResumosPagamentos()" />
+        </div>
+        <div class="campo">
+          <label>Número de parcelas do restante</label>
+          <input id="pag1NumeroParcelas" type="number" value="0" min="0" />
+        </div>
       </div>
     </div>
 
@@ -118,23 +159,64 @@
 
     <div class="grid-pagamento">
       <div class="campo campo-largo">
-        <label>Título</label>
-        <input id="pag2Titulo" type="text" value="Boleto" />
+        <label>Tipo de pagamento</label>
+        <select id="pag2Titulo" onchange="aplicarPresetPagamento(2)">
+          <option value="À Vista">À Vista</option>
+          <option value="Entrada + Boleto" selected>Entrada + Boleto</option>
+          <option value="Entrada + Cartão de Crédito">Entrada + Cartão de Crédito</option>
+          <option value="Boletos">Boletos</option>
+          <option value="Cartão de Crédito">Cartão de Crédito</option>
+        </select>
       </div>
-
       <div class="campo">
         <label>Desconto adicional (%)</label>
         <input id="pag2DescontoAdicional" type="number" value="0" />
       </div>
+    </div>
 
-      <div class="campo">
-        <label>Entrada (%)</label>
-        <input id="pag2EntradaPercentual" type="number" value="30" />
+    <!-- ENTRADA -->
+    <div class="secao-pagamento">
+      <div class="secao-pagamento-titulo">Entrada</div>
+      <div class="grid-pagamento">
+        <div class="campo">
+          <label>Percentual da entrada (%)</label>
+          <input id="pag2EntradaPercentual" type="number" value="30" min="0" max="100" />
+        </div>
+        <div class="campo">
+          <label>Forma de pagamento da entrada</label>
+          <select id="pag2EntradaForma" onchange="atualizarTaxaCartao(2, 'Entrada')">
+            <option value="Boleto">Boleto</option>
+            <option value="PIX">PIX</option>
+            <option value="Cartão de Crédito">Cartão de Crédito</option>
+          </select>
+        </div>
+        <div class="campo campo-taxa-cartao" id="pag2EntradaTaxaWrap" style="display:none;">
+          <label>Taxa cartão entrada (%)</label>
+          <input id="pag2EntradaTaxa" type="number" value="3" step="0.1" min="0" onchange="atualizarResumosPagamentos()" oninput="atualizarResumosPagamentos()" />
+        </div>
       </div>
+    </div>
 
-      <div class="campo">
-        <label>Número de parcelas</label>
-        <input id="pag2NumeroParcelas" type="number" value="4" />
+    <!-- RESTANTE -->
+    <div class="secao-pagamento">
+      <div class="secao-pagamento-titulo">Restante</div>
+      <div class="grid-pagamento">
+        <div class="campo">
+          <label>Forma de pagamento do restante</label>
+          <select id="pag2RestanteForma" onchange="atualizarTaxaCartao(2, 'Restante')">
+            <option value="Boleto" selected>Boleto</option>
+            <option value="PIX">PIX</option>
+            <option value="Cartão de Crédito">Cartão de Crédito</option>
+          </select>
+        </div>
+        <div class="campo campo-taxa-cartao" id="pag2RestanteTaxaWrap" style="display:none;">
+          <label>Taxa cartão restante (%)</label>
+          <input id="pag2RestanteTaxa" type="number" value="3" step="0.1" min="0" onchange="atualizarResumosPagamentos()" oninput="atualizarResumosPagamentos()" />
+        </div>
+        <div class="campo">
+          <label>Número de parcelas do restante</label>
+          <input id="pag2NumeroParcelas" type="number" value="4" min="0" />
+        </div>
       </div>
     </div>
 
@@ -147,23 +229,64 @@
 
     <div class="grid-pagamento">
       <div class="campo campo-largo">
-        <label>Título</label>
-        <input id="pag3Titulo" type="text" value="Cartão de Crédito" />
+        <label>Tipo de pagamento</label>
+        <select id="pag3Titulo" onchange="aplicarPresetPagamento(3)">
+          <option value="À Vista">À Vista</option>
+          <option value="Entrada + Boleto">Entrada + Boleto</option>
+          <option value="Entrada + Cartão de Crédito" selected>Entrada + Cartão de Crédito</option>
+          <option value="Boletos">Boletos</option>
+          <option value="Cartão de Crédito">Cartão de Crédito</option>
+        </select>
       </div>
-
       <div class="campo">
         <label>Desconto adicional (%)</label>
         <input id="pag3DescontoAdicional" type="number" value="0" />
       </div>
+    </div>
 
-      <div class="campo">
-        <label>Entrada (%)</label>
-        <input id="pag3EntradaPercentual" type="number" value="50" />
+    <!-- ENTRADA -->
+    <div class="secao-pagamento">
+      <div class="secao-pagamento-titulo">Entrada</div>
+      <div class="grid-pagamento">
+        <div class="campo">
+          <label>Percentual da entrada (%)</label>
+          <input id="pag3EntradaPercentual" type="number" value="50" min="0" max="100" />
+        </div>
+        <div class="campo">
+          <label>Forma de pagamento da entrada</label>
+          <select id="pag3EntradaForma" onchange="atualizarTaxaCartao(3, 'Entrada')">
+            <option value="Boleto">Boleto</option>
+            <option value="PIX">PIX</option>
+            <option value="Cartão de Crédito">Cartão de Crédito</option>
+          </select>
+        </div>
+        <div class="campo campo-taxa-cartao" id="pag3EntradaTaxaWrap" style="display:none;">
+          <label>Taxa cartão entrada (%)</label>
+          <input id="pag3EntradaTaxa" type="number" value="3" step="0.1" min="0" onchange="atualizarResumosPagamentos()" oninput="atualizarResumosPagamentos()" />
+        </div>
       </div>
+    </div>
 
-      <div class="campo">
-        <label>Número de parcelas</label>
-        <input id="pag3NumeroParcelas" type="number" value="6" />
+    <!-- RESTANTE -->
+    <div class="secao-pagamento">
+      <div class="secao-pagamento-titulo">Restante</div>
+      <div class="grid-pagamento">
+        <div class="campo">
+          <label>Forma de pagamento do restante</label>
+          <select id="pag3RestanteForma" onchange="atualizarTaxaCartao(3, 'Restante')">
+            <option value="Boleto">Boleto</option>
+            <option value="PIX">PIX</option>
+            <option value="Cartão de Crédito" selected>Cartão de Crédito</option>
+          </select>
+        </div>
+        <div class="campo campo-taxa-cartao" id="pag3RestanteTaxaWrap">
+          <label>Taxa cartão restante (%)</label>
+          <input id="pag3RestanteTaxa" type="number" value="3" step="0.1" min="0" onchange="atualizarResumosPagamentos()" oninput="atualizarResumosPagamentos()" />
+        </div>
+        <div class="campo">
+          <label>Número de parcelas do restante</label>
+          <input id="pag3NumeroParcelas" type="number" value="6" min="0" />
+        </div>
       </div>
     </div>
 

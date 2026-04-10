@@ -209,3 +209,104 @@ textarea {
   font-family: Arial, sans-serif;
   resize: vertical;
 }
+
+.secao-pagamento {
+  margin-top: 14px;
+  padding: 12px;
+  background: #f0f4ff;
+  border-radius: 8px;
+  border-left: 3px solid #2563eb;
+}
+
+.secao-pagamento-titulo {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2563eb;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.campo-taxa-cartao {
+  display: flex;
+  flex-direction: column;
+}
+
+.resumo-pagamento hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 8px 0;
+}
+
+/* Botões da tabela de produtos */
+.td-acoes {
+  white-space: nowrap;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-mover {
+  padding: 6px 8px;
+  font-size: 12px;
+  background: #6b7280;
+  border-radius: 6px;
+  min-width: 30px;
+}
+
+.btn-mover:hover:not(:disabled) {
+  background: #4b5563;
+}
+
+.btn-mover:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn-editar {
+  padding: 6px 10px;
+  font-size: 12px;
+  background: #f59e0b;
+  border-radius: 6px;
+}
+
+.btn-editar:hover {
+  background: #d97706;
+}
+
+.btn-remover {
+  padding: 6px 10px;
+  font-size: 12px;
+  background: #ef4444;
+  border-radius: 6px;
+}
+
+.btn-remover:hover {
+  background: #dc2626;
+}
+
+.linha-editando {
+  background: #fffbeb !important;
+  outline: 2px solid #f59e0b;
+}
+
+.btn-salvando {
+  background: #f59e0b !important;
+}
+
+.btn-salvando:hover {
+  background: #d97706 !important;
+}
