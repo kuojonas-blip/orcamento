@@ -73,6 +73,7 @@ document.getElementById("produtoVista").addEventListener("input", function (e) {
 });
 
 document.getElementById("produtoDesconto").addEventListener("input", atualizarValorFinalProduto);
+document.getElementById("produtoQtd").addEventListener("input", atualizarValorFinalProduto);
 
 // =======================
 // ADICIONAR PRODUTO
@@ -92,7 +93,7 @@ botaoAdicionar.addEventListener("click", function () {
   }
 
   if (!final) {
-    final = calcularValorFinal(valor, desconto);
+    final = calcularValorFinal(valor, desconto, qtd);
   }
 
   if (editandoIndex !== null) {
@@ -234,11 +235,12 @@ function formatarMoeda(valor) {
   });
 }
 
-function calcularValorFinal(valorUnitarioTexto, descontoTexto) {
+function calcularValorFinal(valorUnitarioTexto, descontoTexto, qtd) {
   const valorUnitario = parseMoeda(valorUnitarioTexto);
   const desconto = parsePercentual(descontoTexto);
+  const quantidade = Number(qtd) || 1;
 
-  const final = valorUnitario * (1 - desconto / 100);
+  const final = valorUnitario * quantidade * (1 - desconto / 100);
 
   return valorUnitario ? formatarMoeda(final) : "";
 }
@@ -246,9 +248,10 @@ function calcularValorFinal(valorUnitarioTexto, descontoTexto) {
 function atualizarValorFinalProduto() {
   const valor = document.getElementById("produtoValor").value.trim();
   const desconto = document.getElementById("produtoDesconto").value.trim();
+  const qtd = document.getElementById("produtoQtd").value.trim();
 
   document.getElementById("produtoVista").value =
-    valor ? calcularValorFinal(valor, desconto) : "";
+    valor ? calcularValorFinal(valor, desconto, qtd) : "";
 }
 
 function formatarDataExtenso(data) {
