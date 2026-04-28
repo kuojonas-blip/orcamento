@@ -357,7 +357,7 @@ function atualizarVisibilidadePagamentos() {
 
 function calcularTotalProdutos() {
   return produtos.reduce(function (soma, produto) {
-    return soma + (Number(produto.qtd || 0) * parseMoeda(produto.final));
+    return soma + parseMoeda(produto.final);
   }, 0);
 }
 
