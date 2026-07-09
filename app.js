@@ -636,7 +636,14 @@ function montarHtmlOrcamento() {
   }).join("");
 
   return `
-    <div style="font-family: Arial, sans-serif; color:#000; font-size:12px; background:#fff; padding:0; width:100%; box-sizing:border-box;">
+    <div class="doc-impresso" style="font-family: Arial, sans-serif; color:#000; font-size:12px; background:#fff; padding:0; width:100%; box-sizing:border-box;">
+      <style>
+        /* Mesmo alinhamento centralizado usado em todas as tabelas do modelo Word */
+        .doc-impresso table th,
+        .doc-impresso table td {
+          text-align: center;
+        }
+      </style>
       <div style="text-align:center; margin-bottom:16px;">
         <img src="logo.png" alt="Sinmag Brasil" style="max-width:220px; height:auto;" onerror="this.style.display='none'" />
         <h1 style="margin:8px 0 0; font-size:20px; color:${corTabela};">PROPOSTA COMERCIAL</h1>
