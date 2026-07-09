@@ -646,9 +646,6 @@ function montarHtmlOrcamento() {
 
         /* Cabeçalho e rodapé fixos: no Chrome/Edge, elementos position:fixed
            se repetem em TODA página impressa (é o mesmo truque usado por
-           várias ferramentas de "imprimir como PDF" com cabeçalho fixo). */
-        /* Cabeçalho e rodapé fixos: no Chrome/Edge, elementos position:fixed
-           se repetem em TODA página impressa (é o mesmo truque usado por
            várias ferramentas de "imprimir como PDF" com cabeçalho fixo).
            Os deslocamentos negativos colocam esses elementos DENTRO da
            margem reservada pelo @page (30mm topo / 20mm rodapé no style.css),
@@ -656,14 +653,17 @@ function montarHtmlOrcamento() {
         @media print {
           .print-header-fixo {
             position: fixed;
-            top: -22mm;
+            top: -20mm;
             left: 0;
             right: 0;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
           }
           .print-footer-fixo {
             position: fixed;
-            bottom: -16mm;
+            bottom: -13mm;
             left: 0;
             right: 0;
             text-align: center;
@@ -679,7 +679,8 @@ function montarHtmlOrcamento() {
       </style>
 
       <div class="print-header-fixo">
-        <img src="logo.png" alt="Sinmag Brasil" style="max-width:150px; height:auto;" onerror="this.style.display='none'" />
+        <img src="logo.png" alt="Sinmag Brasil" style="max-width:130px; height:auto;" onerror="this.style.display='none'" />
+        <span style="font-size:17px; font-weight:bold; color:${corTabela};">PROPOSTA COMERCIAL</span>
       </div>
 
       <div class="print-footer-fixo">
@@ -688,11 +689,6 @@ function montarHtmlOrcamento() {
       </div>
 
       <div class="print-corpo">
-      <div style="text-align:center; margin-bottom:16px;">
-        <img src="logo.png" alt="Sinmag Brasil" style="max-width:220px; height:auto;" onerror="this.style.display='none'" />
-        <h1 style="margin:8px 0 0; font-size:20px; color:${corTabela};">PROPOSTA COMERCIAL</h1>
-      </div>
-
       <p>${dataCidade}</p>
 
       ${tituloSecao("DADOS DO CLIENTE")}
