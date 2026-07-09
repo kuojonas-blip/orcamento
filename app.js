@@ -549,8 +549,12 @@ botaoGerarWord.addEventListener("click", async function () {
       return;
     }
 
-    const blob = doc.getZip().generate({ type: "blob" });
-    saveBlob(blob, montarNomeArquivo("docx"));
+    const docxBase64 = doc.getZip().generate({ type: "base64" });
+    downloadArquivo(
+      docxBase64,
+      montarNomeArquivo("docx"),
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    );
 
   } catch (erro) {
     console.error("ERRO COMPLETO:", erro);
@@ -613,14 +617,16 @@ function montarHtmlOrcamento() {
         <td style="border:1px solid #000; padding:6px;">${p.ENTRADA_PERCENTUAL}</td>
         <td style="border:1px solid #000; padding:6px;">${p.ENTRADA_VALOR}</td>
         <td style="border:1px solid #000; padding:6px;">${p.PARCELAS_TEXTO}</td>
+        <td style="border:1px solid #000; padding:6px; font-weight:bold;">${p.TOTAL_FINAL}</td>
       </tr>
     `;
   }).join("");
 
   return `
-    <div style="font-family: Arial, sans-serif; color:#000; font-size:12px; background:#fff; padding:20px;">
+    <div style="font-family: Arial, sans-serif; color:#000; font-size:12px; background:#fff; padding:20px; width:760px;">
       <div style="text-align:center; margin-bottom:20px;">
-        <h1 style="margin:0; font-size:24px;">SINMAG BRASIL</h1>
+        <img src="logo.png" alt="Sinmag Brasil" style="max-width:220px; height:auto;" onerror="this.style.display='none'" />
+        <h1 style="margin:8px 0 0; font-size:20px;">PROPOSTA COMERCIAL</h1>
       </div>
 
       <p>${dataCidade}</p>
@@ -669,6 +675,7 @@ function montarHtmlOrcamento() {
             <th style="border:1px solid #000; padding:6px;">Entrada %</th>
             <th style="border:1px solid #000; padding:6px;">Entrada</th>
             <th style="border:1px solid #000; padding:6px;">Parcelamento</th>
+            <th style="border:1px solid #000; padding:6px;">Total</th>
           </tr>
         </thead>
         <tbody>
@@ -697,25 +704,30 @@ function montarHtmlOrcamento() {
 if (botaoGerarPDF) {
   botaoGerarPDF.addEventListener("click", function () {
     if (typeof html2pdf === "undefined") {
-      alert("Biblioteca PDF não carregada");
+      alert("Biblioteca de PDF não carregou. Verifique sua conexão e tente novamente.");
+      return;
+    }
+
+    if (produtos.length === 0) {
+      alert("Adicione pelo menos um produto antes de gerar o PDF.");
       return;
     }
 
     const preview = document.getElementById("previewPDF");
     const conteudo = document.getElementById("pdfConteudo");
+    const overlay = document.getElementById("pdfOverlay");
 
     conteudo.innerHTML = montarHtmlOrcamento();
 
-    preview.style.display = "block";
-    preview.style.position = "relative";
-    preview.style.opacity = "1";
+    const nomeOriginal = botaoGerarPDF.textContent;
+    botaoGerarPDF.textContent = "Gerando...";
+    botaoGerarPDF.disabled = true;
+    overlay.style.display = "flex";
 
     const opcoes = {
       margin: 5,
       filename: montarNomeArquivo("pdf"),
-      html2canvas: {
-        scale: 2
-      },
+      html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
       jsPDF: {
         unit: "mm",
         format: "a4",
@@ -723,22 +735,57 @@ if (botaoGerarPDF) {
       }
     };
 
+    // Pequeno atraso para garantir que o conteúdo (e a logo, se houver) já renderizou
     setTimeout(() => {
       html2pdf()
         .set(opcoes)
         .from(preview)
         .save()
-        .then(() => {
-          preview.style.display = "none";
+        .catch(function (erro) {
+          console.error("Erro ao gerar PDF:", erro);
+          alert("Erro ao gerar PDF:\n" + (erro.message || erro));
+        })
+        .finally(function () {
+          botaoGerarPDF.textContent = nomeOriginal;
+          botaoGerarPDF.disabled = false;
+          overlay.style.display = "none";
+          conteudo.innerHTML = "";
         });
-    }, 500);
+    }, 300);
   });
 }
 
 // =======================
 // DOWNLOAD
 // =======================
-function saveBlob(blob, nome) {
+function isIOS() {
+  const ua = window.navigator.userAgent;
+  return /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+
+function base64ParaBlob(base64Data, mimeType) {
+  const byteChars = atob(base64Data);
+  const byteNumbers = new Array(byteChars.length);
+  for (let i = 0; i < byteChars.length; i++) {
+    byteNumbers[i] = byteChars.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  return new Blob([byteArray], { type: mimeType });
+}
+
+function downloadArquivo(base64Data, nome, mimeType) {
+  if (isIOS()) {
+    // iOS (incluindo navegadores embutidos como WhatsApp/Instagram) perde o
+    // tipo do arquivo ao abrir um blob: URL em nova aba, e o Safari acaba
+    // "adivinhando" pelos bytes que é um .zip. Um Data URI (base64) carrega
+    // o tipo junto com os dados, então navegar na MESMA aba resolve.
+    const dataUri = `data:${mimeType};base64,${base64Data}`;
+    window.location.href = dataUri;
+    return;
+  }
+
+  // Demais navegadores: Blob + <a download> funciona normalmente
+  const blob = base64ParaBlob(base64Data, mimeType);
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
