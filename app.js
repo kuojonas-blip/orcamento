@@ -591,21 +591,34 @@ function montarHtmlOrcamento() {
   const vendedorNome = document.getElementById("vendedorNome").value;
   const vendedorTelefone = document.getElementById("vendedorTelefone").value;
 
+  const observacoesFinais = document.getElementById("observacoesFinais").value;
+
   const pagamentos = [];
   for (let i = 1; i <= Number(selectQuantidadePagamentos.value); i++) {
     pagamentos.push(montarPagamento(i));
   }
 
+  // Mesmas cores do modelo.docx: barras de seção (azul médio), cabeçalhos
+  // de tabela (azul escuro) e rótulos das Condições Gerais (azul claro)
+  const corSecao = "#2E6DA4";
+  const corTabela = "#17365D";
+  const corRotulo = "#DBE5F1";
+  const corBorda = "#999999";
+
+  function tituloSecao(texto) {
+    return `<div style="background:${corSecao}; color:#fff; font-weight:bold; padding:8px 10px; margin-top:14px; font-size:13px;">${texto}</div>`;
+  }
+
   const itensHtml = produtos.map(function (p) {
     return `
       <tr>
-        <td style="border:1px solid #000; padding:6px;">${p.nome || ""}</td>
-        <td style="border:1px solid #000; padding:6px;">${p.valor || ""}</td>
-        <td style="border:1px solid #000; padding:6px;">${p.qtd || ""}</td>
-        <td style="border:1px solid #000; padding:6px;">${p.desconto || ""}</td>
-        <td style="border:1px solid #000; padding:6px;">${p.final || ""}</td>
-        <td style="border:1px solid #000; padding:6px;">${p.obs || ""}</td>
-        <td style="border:1px solid #000; padding:6px;">${p.prazo || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px;">${p.nome || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px;">${p.valor || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px;">${p.qtd || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px;">${p.desconto || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px;">${p.final || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px;">${p.obs || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px;">${p.prazo || ""}</td>
       </tr>
     `;
   }).join("");
@@ -613,48 +626,44 @@ function montarHtmlOrcamento() {
   const pagamentosHtml = pagamentos.map(function (p) {
     return `
       <tr>
-        <td style="border:1px solid #000; padding:6px;">${p.TITULO}</td>
-        <td style="border:1px solid #000; padding:6px;">${p.ENTRADA_PERCENTUAL}</td>
-        <td style="border:1px solid #000; padding:6px;">${p.ENTRADA_VALOR}</td>
-        <td style="border:1px solid #000; padding:6px;">${p.PARCELAS_TEXTO}</td>
-        <td style="border:1px solid #000; padding:6px; font-weight:bold;">${p.TOTAL_FINAL}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px;">${p.TITULO}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px;">${p.ENTRADA_PERCENTUAL}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px;">${p.ENTRADA_VALOR}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px;">${p.PARCELAS_TEXTO}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; font-weight:bold;">${p.TOTAL_FINAL}</td>
       </tr>
     `;
   }).join("");
 
   return `
     <div style="font-family: Arial, sans-serif; color:#000; font-size:12px; background:#fff; padding:0; width:100%; box-sizing:border-box;">
-      <div style="text-align:center; margin-bottom:20px;">
+      <div style="text-align:center; margin-bottom:16px;">
         <img src="logo.png" alt="Sinmag Brasil" style="max-width:220px; height:auto;" onerror="this.style.display='none'" />
-        <h1 style="margin:8px 0 0; font-size:20px;">PROPOSTA COMERCIAL</h1>
+        <h1 style="margin:8px 0 0; font-size:20px; color:${corTabela};">PROPOSTA COMERCIAL</h1>
       </div>
 
       <p>${dataCidade}</p>
 
-      <div style="background:#d9e6ef; padding:8px; font-weight:bold; margin-top:10px;">Dados do cliente</div>
-      <p><strong>Cliente:</strong> ${clienteNome}</p>
-      <p><strong>A/C:</strong> ${clienteContato}</p>
-      <p><strong>CNPJ/CPF:</strong> ${clienteDoc}</p>
-      <p><strong>Endereço:</strong> ${clienteEndereco}</p>
-      <p><strong>Email:</strong> ${clienteEmail} &nbsp;&nbsp;&nbsp; <strong>Telefone:</strong> ${clienteTelefone}</p>
+      ${tituloSecao("DADOS DO CLIENTE")}
+      <p style="margin:8px 0 2px;"><strong>Cliente:</strong> ${clienteNome}</p>
+      <p style="margin:2px 0;"><strong>A/C:</strong> ${clienteContato}</p>
+      <p style="margin:2px 0;"><strong>CNPJ/CPF:</strong> ${clienteDoc}</p>
+      <p style="margin:2px 0;"><strong>Endereço:</strong> ${clienteEndereco}</p>
+      <p style="margin:2px 0;"><strong>Email:</strong> ${clienteEmail} &nbsp;&nbsp;&nbsp; <strong>Telefone:</strong> ${clienteTelefone}</p>
 
-      <div style="background:#d9e6ef; padding:8px; font-weight:bold; margin-top:10px;">Proposta Comercial</div>
-      <p><strong>Prezados(as) Senhores(as):</strong><br>
-      Conforme solicitado, apresentamos nossa proposta comercial para seu projeto.</p>
-
-      <h3 style="margin-bottom:5px;">ITENS DA PROPOSTA</h3>
-      <p style="margin-top:0;">Quadro resumo</p>
+      ${tituloSecao("ITENS DA PROPOSTA")}
+      <p style="margin:8px 0;"><strong>Prezados(as) Senhores(as),</strong> conforme solicitado, apresentamos nossa proposta comercial:</p>
 
       <table style="width:100%; border-collapse:collapse; font-size:11px;">
         <thead>
-          <tr>
-            <th style="border:1px solid #000; padding:6px;">Produto</th>
-            <th style="border:1px solid #000; padding:6px;">Valor Unitário</th>
-            <th style="border:1px solid #000; padding:6px;">Qtd</th>
-            <th style="border:1px solid #000; padding:6px;">Desconto</th>
-            <th style="border:1px solid #000; padding:6px;">Valor Final</th>
-            <th style="border:1px solid #000; padding:6px;">Obs</th>
-            <th style="border:1px solid #000; padding:6px;">Prazo Entrega</th>
+          <tr style="background:${corTabela}; color:#fff;">
+            <th style="border:1px solid ${corBorda}; padding:6px;">Produto</th>
+            <th style="border:1px solid ${corBorda}; padding:6px;">Valor Unitário</th>
+            <th style="border:1px solid ${corBorda}; padding:6px;">Qtd</th>
+            <th style="border:1px solid ${corBorda}; padding:6px;">Desconto</th>
+            <th style="border:1px solid ${corBorda}; padding:6px;">Valor Final</th>
+            <th style="border:1px solid ${corBorda}; padding:6px;">Obs</th>
+            <th style="border:1px solid ${corBorda}; padding:6px;">Prazo Entrega</th>
           </tr>
         </thead>
         <tbody>
@@ -662,20 +671,20 @@ function montarHtmlOrcamento() {
         </tbody>
       </table>
 
-      <p><em>*Materiais referentes aos produtos serão enviados separadamente*</em></p>
-      <p><em>*O prazo informado é aproximado e está sujeito a alterações conforme disponibilidade de estoque, logística e outros fatores*</em></p>
-      
-      <h3>TERMOS COMERCIAIS</h3>
-      <p><strong>Condições de pagamento:</strong></p>
+      <p style="margin:6px 0 0;"><em>* O prazo informado é aproximado e está sujeito a alterações conforme disponibilidade de estoque, logística e outros fatores.</em></p>
+      <p style="margin:2px 0;"><em>* Materiais referentes aos produtos serão enviados separadamente.</em></p>
+
+      ${tituloSecao("TERMOS COMERCIAIS")}
+      <p style="margin:8px 0 4px;"><strong>Condições de pagamento:</strong></p>
 
       <table style="width:100%; border-collapse:collapse; font-size:11px;">
         <thead>
-          <tr>
-            <th style="border:1px solid #000; padding:6px;">Forma de pagamento</th>
-            <th style="border:1px solid #000; padding:6px;">Entrada %</th>
-            <th style="border:1px solid #000; padding:6px;">Entrada</th>
-            <th style="border:1px solid #000; padding:6px;">Parcelamento</th>
-            <th style="border:1px solid #000; padding:6px;">Total</th>
+          <tr style="background:${corTabela}; color:#fff;">
+            <th style="border:1px solid ${corBorda}; padding:6px;">Forma de pagamento</th>
+            <th style="border:1px solid ${corBorda}; padding:6px;">Entrada %</th>
+            <th style="border:1px solid ${corBorda}; padding:6px;">Entrada</th>
+            <th style="border:1px solid ${corBorda}; padding:6px;">Parcelamento</th>
+            <th style="border:1px solid ${corBorda}; padding:6px;">Total</th>
           </tr>
         </thead>
         <tbody>
@@ -683,17 +692,30 @@ function montarHtmlOrcamento() {
         </tbody>
       </table>
 
-      <p><em>*Os valores para pagamento por meio de boleto bancário estão sujeitos à prévia análise de crédito.*</em></p>
+      <p style="margin:6px 0 0;"><em>* Os valores para pagamento por meio de boleto bancário estão sujeitos à prévia análise de crédito.</em></p>
 
-      <p><strong>Garantia:</strong> ${garantia}</p>
-      <p><strong>Frete:</strong> ${frete}</p>
-      <p><strong>Instalação:</strong> ${instalacao}</p>
-      <p><strong>Validade da proposta:</strong> ${validade}</p>
+      ${tituloSecao("CONDIÇÕES GERAIS")}
+      <table style="width:100%; border-collapse:collapse; font-size:11px; margin-top:8px;">
+        <tr>
+          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px; width:15%;">Garantia</td>
+          <td style="border:1px solid ${corBorda}; padding:6px; width:35%;">${garantia}</td>
+          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px; width:15%;">Instalação</td>
+          <td style="border:1px solid ${corBorda}; padding:6px; width:35%;">${instalacao}</td>
+        </tr>
+        <tr>
+          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px;">Frete</td>
+          <td style="border:1px solid ${corBorda}; padding:6px;">${frete}</td>
+          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px;">Validade da Proposta</td>
+          <td style="border:1px solid ${corBorda}; padding:6px;">${validade}</td>
+        </tr>
+      </table>
 
-      <br>
-      <p>Sem mais, agradecemos a oportunidade de apresentar nossa proposta.</p>
-      <p>Atenciosamente,</p>
-      <p>${vendedorNome}<br>${vendedorTelefone}</p>
+      ${tituloSecao("OBSERVAÇÕES")}
+      <p style="margin:8px 0; white-space:pre-line;">${observacoesFinais || ""}</p>
+
+      <p style="margin-top:16px;">Sem mais, agradecemos a oportunidade de apresentar nossa proposta.</p>
+      <p style="margin:2px 0;">Atenciosamente,</p>
+      <p style="margin:2px 0;"><strong>${vendedorNome}</strong><br>${vendedorTelefone}</p>
     </div>
   `;
 }
