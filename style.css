@@ -119,7 +119,7 @@ table th {
        Importante: na tela de impressão, a opção "Margens" precisa ficar em
        "Padrão" para essa medida ser respeitada (se trocar para "Nenhuma",
        o navegador ignora esse valor e usa margem zero). */
-    margin: 26mm 12mm 18mm 12mm;
+    margin: 14mm 12mm;
   }
 
   /* Esconde o formulário inteiro (com display:none o espaço é

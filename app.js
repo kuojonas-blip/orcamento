@@ -612,13 +612,13 @@ function montarHtmlOrcamento() {
   const itensHtml = produtos.map(function (p) {
     return `
       <tr>
-        <td style="border:1px solid ${corBorda}; padding:6px;">${p.nome || ""}</td>
-        <td style="border:1px solid ${corBorda}; padding:6px;">${p.valor || ""}</td>
-        <td style="border:1px solid ${corBorda}; padding:6px;">${p.qtd || ""}</td>
-        <td style="border:1px solid ${corBorda}; padding:6px;">${p.desconto || ""}</td>
-        <td style="border:1px solid ${corBorda}; padding:6px;">${p.final || ""}</td>
-        <td style="border:1px solid ${corBorda}; padding:6px;">${p.obs || ""}</td>
-        <td style="border:1px solid ${corBorda}; padding:6px;">${p.prazo || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${p.nome || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${p.valor || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${p.qtd || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${p.desconto || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${p.final || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${p.obs || ""}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${p.prazo || ""}</td>
       </tr>
     `;
   }).join("");
@@ -626,11 +626,11 @@ function montarHtmlOrcamento() {
   const pagamentosHtml = pagamentos.map(function (p) {
     return `
       <tr>
-        <td style="border:1px solid ${corBorda}; padding:6px;">${p.TITULO}</td>
-        <td style="border:1px solid ${corBorda}; padding:6px;">${p.ENTRADA_PERCENTUAL}</td>
-        <td style="border:1px solid ${corBorda}; padding:6px;">${p.ENTRADA_VALOR}</td>
-        <td style="border:1px solid ${corBorda}; padding:6px;">${p.PARCELAS_TEXTO}</td>
-        <td style="border:1px solid ${corBorda}; padding:6px; font-weight:bold;">${p.TOTAL_FINAL}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${p.TITULO}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${p.ENTRADA_PERCENTUAL}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${p.ENTRADA_VALOR}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${p.PARCELAS_TEXTO}</td>
+        <td style="border:1px solid ${corBorda}; padding:6px; text-align:center; font-weight:bold;">${p.TOTAL_FINAL}</td>
       </tr>
     `;
   }).join("");
@@ -644,48 +644,15 @@ function montarHtmlOrcamento() {
           text-align: center;
         }
 
-        /* Cabeçalho e rodapé fixos: no Chrome/Edge, elementos position:fixed
-           se repetem em TODA página impressa (é o mesmo truque usado por
-           várias ferramentas de "imprimir como PDF" com cabeçalho fixo).
-           Os deslocamentos negativos colocam esses elementos DENTRO da
-           margem reservada pelo @page (30mm topo / 20mm rodapé no style.css),
-           então eles não empurram nem sobrepõem o conteúdo em nenhuma página. */
-        @media print {
-          .print-header-fixo {
-            position: fixed;
-            top: -20mm;
-            left: 0;
-            right: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-          }
-          .print-footer-fixo {
-            position: fixed;
-            bottom: -13mm;
-            left: 0;
-            right: 0;
-            text-align: center;
-            padding-top: 3mm;
-            border-top: 1px solid #ccc;
-            font-size: 9px;
-            color: #555;
-          }
-          .print-footer-fixo a {
-            color: #555;
-          }
-        }
+        /* Alinhamento simples: cabeçalho (logo + título) no início do
+           documento, rodapé no final. Nada de position:fixed — em teste
+           real esse truque não se comportou de forma confiável, então
+           preferimos o jeito simples e previsível. */
       </style>
 
-      <div class="print-header-fixo">
+      <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:14px;">
         <img src="logo.png" alt="Sinmag Brasil" style="max-width:130px; height:auto;" onerror="this.style.display='none'" />
-        <span style="font-size:17px; font-weight:bold; color:${corTabela};">PROPOSTA COMERCIAL</span>
-      </div>
-
-      <div class="print-footer-fixo">
-        Sinmag Brasil Equipamentos <a href="https://www.sinmag.com.br">www.sinmag.com.br</a><br>
-        Endereço: Alameda dos Aicás, 395 - São Paulo
+        <span style="font-size:20px; font-weight:bold; color:${corTabela};">PROPOSTA COMERCIAL</span>
       </div>
 
       <div class="print-corpo">
@@ -705,13 +672,13 @@ function montarHtmlOrcamento() {
       <table style="width:100%; border-collapse:collapse; font-size:11px;">
         <thead>
           <tr>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Produto</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Valor Unitário</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Qtd</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Desconto</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Valor Final</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Obs</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Prazo Entrega</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Produto</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Valor Unitário</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Qtd</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Desconto</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Valor Final</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Obs</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Prazo Entrega</th>
           </tr>
         </thead>
         <tbody>
@@ -728,11 +695,11 @@ function montarHtmlOrcamento() {
       <table style="width:100%; border-collapse:collapse; font-size:11px;">
         <thead>
           <tr>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Forma de pagamento</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Entrada %</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Entrada</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Parcelamento</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Total</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Forma de pagamento</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Entrada %</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Entrada</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Parcelamento</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Total</th>
           </tr>
         </thead>
         <tbody>
@@ -745,16 +712,16 @@ function montarHtmlOrcamento() {
       ${tituloSecao("CONDIÇÕES GERAIS")}
       <table style="width:100%; border-collapse:collapse; font-size:11px; margin-top:8px;">
         <tr>
-          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px; width:15%;">Garantia</td>
-          <td style="border:1px solid ${corBorda}; padding:6px; width:35%;">${garantia}</td>
-          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px; width:15%;">Instalação</td>
-          <td style="border:1px solid ${corBorda}; padding:6px; width:35%;">${instalacao}</td>
+          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px; text-align:center; width:15%;">Garantia</td>
+          <td style="border:1px solid ${corBorda}; padding:6px; text-align:center; width:35%;">${garantia}</td>
+          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px; text-align:center; width:15%;">Instalação</td>
+          <td style="border:1px solid ${corBorda}; padding:6px; text-align:center; width:35%;">${instalacao}</td>
         </tr>
         <tr>
-          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px;">Frete</td>
-          <td style="border:1px solid ${corBorda}; padding:6px;">${frete}</td>
-          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px;">Validade da Proposta</td>
-          <td style="border:1px solid ${corBorda}; padding:6px;">${validade}</td>
+          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px; text-align:center;">Frete</td>
+          <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${frete}</td>
+          <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px; text-align:center;">Validade da Proposta</td>
+          <td style="border:1px solid ${corBorda}; padding:6px; text-align:center;">${validade}</td>
         </tr>
       </table>
 
@@ -764,6 +731,11 @@ function montarHtmlOrcamento() {
       <p style="margin-top:16px;">Sem mais, agradecemos a oportunidade de apresentar nossa proposta.</p>
       <p style="margin:2px 0;">Atenciosamente,</p>
       <p style="margin:2px 0;"><strong>${vendedorNome}</strong><br>${vendedorTelefone}</p>
+      </div>
+
+      <div style="text-align:center; margin-top:30px; padding-top:8px; border-top:1px solid #ccc; font-size:9px; color:#555;">
+        Sinmag Brasil Equipamentos <a href="https://www.sinmag.com.br" style="color:#555;">www.sinmag.com.br</a><br>
+        Endereço: Alameda dos Aicás, 395 - São Paulo
       </div>
     </div>
   `;
