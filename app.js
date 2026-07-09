@@ -650,9 +650,15 @@ function montarHtmlOrcamento() {
            preferimos o jeito simples e previsível. */
       </style>
 
-      <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:14px;">
-        <img src="logo.png" alt="Sinmag Brasil" style="max-width:130px; height:auto;" onerror="this.style.display='none'" />
-        <span style="font-size:20px; font-weight:bold; color:${corTabela};">PROPOSTA COMERCIAL</span>
+      <div style="position:relative; padding:6px 0 10px; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; width:0; height:0; border-style:solid; border-width:60px 60px 0 0; border-color:#B7CFE8 transparent transparent transparent;"></div>
+        <span style="position:absolute; top:6px; left:8px; color:#fff; font-size:11px; font-weight:bold;">1</span>
+
+        <div style="display:flex; align-items:center; justify-content:center; gap:24px; padding:8px 0 4px;">
+          <img src="logo.png" alt="Sinmag Brasil" style="width:190px; height:auto; display:block;" onerror="this.style.display='none'" />
+          <span style="font-size:22px; font-weight:bold; color:#1F497D; white-space:nowrap;">PROPOSTA COMERCIAL</span>
+        </div>
+        <div style="border-bottom:2px solid #1F497D; margin-top:6px;"></div>
       </div>
 
       <div class="print-corpo">
