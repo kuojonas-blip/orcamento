@@ -302,24 +302,23 @@
 </div>
 
 <div class="acoes">
-  <button id="gerarWord" type="button">Gerar Word</button>
-  <button id="gerarPDF" type="button" class="btn-pdf">Gerar PDF</button>
+  <div class="acoes-botao">
+    <button id="gerarWord" type="button">Gerar Word</button>
+  </div>
+  <div class="acoes-botao">
+    <button id="gerarPDF" type="button" class="btn-pdf">Gerar PDF</button>
+    <small class="dica-pdf">Vai abrir a tela de impressão — escolha "Salvar como PDF"</small>
+  </div>
 </div>
 
-<!-- Tela de carregamento: cobre a tela enquanto o PDF é montado e capturado -->
-<div id="pdfOverlay" style="display:none; position:fixed; inset:0; background:#ffffff; z-index:10000; align-items:center; justify-content:center; font-family:Arial, sans-serif; font-size:18px; color:#1f2937;">
-  Gerando PDF...
-</div>
-
-<!-- Área onde o PDF é montado. Fica coberta pela tela de carregamento acima —
-     precisa estar realmente visível (não escondida via opacity/display) para
-     o html2canvas conseguir capturar o conteúdo corretamente. -->
-<div id="previewPDF" style="position:fixed; top:0; left:0; z-index:1;">
+<!-- Área usada apenas na hora de imprimir/salvar como PDF (window.print).
+     Fica escondida na tela normal; a regra @media print no style.css
+     mostra só ela e esconde o resto da página ao imprimir. -->
+<div id="areaImpressao">
   <div id="pdfConteudo"></div>
 </div>
 </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="https://unpkg.com/pizzip@3.1.8/dist/pizzip.min.js"></script>
   <script src="https://unpkg.com/docxtemplater@3.46.0/build/docxtemplater.js"></script>
   <script src="app.js"></script>

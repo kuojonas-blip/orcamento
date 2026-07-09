@@ -699,61 +699,34 @@ function montarHtmlOrcamento() {
 }
 
 // =======================
-// GERAR PDF (VERSÃO FINAL)
+// GERAR PDF (via impressão nativa do navegador)
 // =======================
 if (botaoGerarPDF) {
   botaoGerarPDF.addEventListener("click", function () {
-    if (typeof html2pdf === "undefined") {
-      alert("Biblioteca de PDF não carregou. Verifique sua conexão e tente novamente.");
-      return;
-    }
-
     if (produtos.length === 0) {
       alert("Adicione pelo menos um produto antes de gerar o PDF.");
       return;
     }
 
-    const preview = document.getElementById("previewPDF");
     const conteudo = document.getElementById("pdfConteudo");
-    const overlay = document.getElementById("pdfOverlay");
-
     conteudo.innerHTML = montarHtmlOrcamento();
 
-    const nomeOriginal = botaoGerarPDF.textContent;
-    botaoGerarPDF.textContent = "Gerando...";
-    botaoGerarPDF.disabled = true;
-    overlay.style.display = "flex";
-
-    const opcoes = {
-      margin: 5,
-      filename: montarNomeArquivo("pdf"),
-      html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
-      jsPDF: {
-        unit: "mm",
-        format: "a4",
-        orientation: "portrait"
-      }
-    };
+    // O navegador sugere o título da página como nome do arquivo ao salvar como PDF
+    const tituloOriginal = document.title;
+    document.title = montarNomeArquivo("pdf").replace(/\.pdf$/i, "");
 
     // Pequeno atraso para garantir que o conteúdo (e a logo, se houver) já renderizou
     setTimeout(() => {
-      html2pdf()
-        .set(opcoes)
-        .from(preview)
-        .save()
-        .catch(function (erro) {
-          console.error("Erro ao gerar PDF:", erro);
-          alert("Erro ao gerar PDF:\n" + (erro.message || erro));
-        })
-        .finally(function () {
-          botaoGerarPDF.textContent = nomeOriginal;
-          botaoGerarPDF.disabled = false;
-          overlay.style.display = "none";
-          conteudo.innerHTML = "";
-        });
+      window.print();
+      document.title = tituloOriginal;
     }, 300);
   });
 }
+
+window.addEventListener("afterprint", function () {
+  const conteudo = document.getElementById("pdfConteudo");
+  if (conteudo) conteudo.innerHTML = "";
+});
 
 // =======================
 // DOWNLOAD
