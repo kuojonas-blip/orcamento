@@ -643,7 +643,51 @@ function montarHtmlOrcamento() {
         .doc-impresso table td {
           text-align: center;
         }
+
+        /* Cabeçalho e rodapé fixos: no Chrome/Edge, elementos position:fixed
+           se repetem em TODA página impressa (é o mesmo truque usado por
+           várias ferramentas de "imprimir como PDF" com cabeçalho fixo). */
+        /* Cabeçalho e rodapé fixos: no Chrome/Edge, elementos position:fixed
+           se repetem em TODA página impressa (é o mesmo truque usado por
+           várias ferramentas de "imprimir como PDF" com cabeçalho fixo).
+           Os deslocamentos negativos colocam esses elementos DENTRO da
+           margem reservada pelo @page (30mm topo / 20mm rodapé no style.css),
+           então eles não empurram nem sobrepõem o conteúdo em nenhuma página. */
+        @media print {
+          .print-header-fixo {
+            position: fixed;
+            top: -22mm;
+            left: 0;
+            right: 0;
+            text-align: center;
+          }
+          .print-footer-fixo {
+            position: fixed;
+            bottom: -16mm;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding-top: 3mm;
+            border-top: 1px solid #ccc;
+            font-size: 9px;
+            color: #555;
+          }
+          .print-footer-fixo a {
+            color: #555;
+          }
+        }
       </style>
+
+      <div class="print-header-fixo">
+        <img src="logo.png" alt="Sinmag Brasil" style="max-width:150px; height:auto;" onerror="this.style.display='none'" />
+      </div>
+
+      <div class="print-footer-fixo">
+        Sinmag Brasil Equipamentos <a href="https://www.sinmag.com.br">www.sinmag.com.br</a><br>
+        Endereço: Alameda dos Aicás, 395 - São Paulo
+      </div>
+
+      <div class="print-corpo">
       <div style="text-align:center; margin-bottom:16px;">
         <img src="logo.png" alt="Sinmag Brasil" style="max-width:220px; height:auto;" onerror="this.style.display='none'" />
         <h1 style="margin:8px 0 0; font-size:20px; color:${corTabela};">PROPOSTA COMERCIAL</h1>
@@ -657,6 +701,7 @@ function montarHtmlOrcamento() {
       <p style="margin:2px 0;"><strong>CNPJ/CPF:</strong> ${clienteDoc}</p>
       <p style="margin:2px 0;"><strong>Endereço:</strong> ${clienteEndereco}</p>
       <p style="margin:2px 0;"><strong>Email:</strong> ${clienteEmail} &nbsp;&nbsp;&nbsp; <strong>Telefone:</strong> ${clienteTelefone}</p>
+
 
       ${tituloSecao("ITENS DA PROPOSTA")}
       <p style="margin:8px 0;"><strong>Prezados(as) Senhores(as),</strong> conforme solicitado, apresentamos nossa proposta comercial:</p>
@@ -723,6 +768,7 @@ function montarHtmlOrcamento() {
       <p style="margin-top:16px;">Sem mais, agradecemos a oportunidade de apresentar nossa proposta.</p>
       <p style="margin:2px 0;">Atenciosamente,</p>
       <p style="margin:2px 0;"><strong>${vendedorNome}</strong><br>${vendedorTelefone}</p>
+      </div>
     </div>
   `;
 }
