@@ -669,16 +669,16 @@ function montarHtmlOrcamento() {
       ${tituloSecao("ITENS DA PROPOSTA")}
       <p style="margin:8px 0;"><strong>Prezados(as) Senhores(as),</strong> conforme solicitado, apresentamos nossa proposta comercial:</p>
 
-      <table style="width:100%; border-collapse:collapse; font-size:11px;">
+      <table style="width:100%; border-collapse:collapse; font-size:11px; table-layout:fixed;">
         <thead>
           <tr>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Produto</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Valor Unitário</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Qtd</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Desconto</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Valor Final</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Obs</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Prazo Entrega</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:24%;">Produto</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:14%;">Valor Unitário</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:8%;">Qtd</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:10%;">Desconto</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:14%;">Valor Final</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:14%;">Obs</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:16%;">Prazo Entrega</th>
           </tr>
         </thead>
         <tbody>
@@ -692,14 +692,14 @@ function montarHtmlOrcamento() {
       ${tituloSecao("TERMOS COMERCIAIS")}
       <p style="margin:8px 0 4px;"><strong>Condições de pagamento:</strong></p>
 
-      <table style="width:100%; border-collapse:collapse; font-size:11px;">
+      <table style="width:100%; border-collapse:collapse; font-size:11px; table-layout:fixed;">
         <thead>
           <tr>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Forma de pagamento</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Entrada %</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Entrada</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Parcelamento</th>
-            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center;">Total</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:26%;">Forma de pagamento</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:12%;">Entrada %</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:16%;">Entrada</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:28%;">Parcelamento</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px; text-align:center; width:18%;">Total</th>
           </tr>
         </thead>
         <tbody>
@@ -710,7 +710,7 @@ function montarHtmlOrcamento() {
       <p style="margin:6px 0 0;"><em>* Os valores para pagamento por meio de boleto bancário estão sujeitos à prévia análise de crédito.</em></p>
 
       ${tituloSecao("CONDIÇÕES GERAIS")}
-      <table style="width:100%; border-collapse:collapse; font-size:11px; margin-top:8px;">
+      <table style="width:100%; border-collapse:collapse; font-size:11px; margin-top:8px; table-layout:fixed;">
         <tr>
           <td style="background:${corRotulo}; font-weight:bold; border:1px solid ${corBorda}; padding:6px; text-align:center; width:15%;">Garantia</td>
           <td style="border:1px solid ${corBorda}; padding:6px; text-align:center; width:35%;">${garantia}</td>
