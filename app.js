@@ -422,7 +422,7 @@ function montarPagamento(numero) {
       restanteTexto = formatarMoeda(saldoComTaxa);
     }
   } else if (entradaPct >= 100) {
-    restanteTexto = "Pago integralmente na entrada";
+    restanteTexto = "100% na entrada";
   } else {
     restanteTexto = "Sem restante";
   }
