@@ -656,14 +656,14 @@ function montarHtmlOrcamento() {
 
       <table style="width:100%; border-collapse:collapse; font-size:11px;">
         <thead>
-          <tr style="background:${corTabela}; color:#fff;">
-            <th style="border:1px solid ${corBorda}; padding:6px;">Produto</th>
-            <th style="border:1px solid ${corBorda}; padding:6px;">Valor Unitário</th>
-            <th style="border:1px solid ${corBorda}; padding:6px;">Qtd</th>
-            <th style="border:1px solid ${corBorda}; padding:6px;">Desconto</th>
-            <th style="border:1px solid ${corBorda}; padding:6px;">Valor Final</th>
-            <th style="border:1px solid ${corBorda}; padding:6px;">Obs</th>
-            <th style="border:1px solid ${corBorda}; padding:6px;">Prazo Entrega</th>
+          <tr>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Produto</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Valor Unitário</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Qtd</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Desconto</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Valor Final</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Obs</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Prazo Entrega</th>
           </tr>
         </thead>
         <tbody>
@@ -679,12 +679,12 @@ function montarHtmlOrcamento() {
 
       <table style="width:100%; border-collapse:collapse; font-size:11px;">
         <thead>
-          <tr style="background:${corTabela}; color:#fff;">
-            <th style="border:1px solid ${corBorda}; padding:6px;">Forma de pagamento</th>
-            <th style="border:1px solid ${corBorda}; padding:6px;">Entrada %</th>
-            <th style="border:1px solid ${corBorda}; padding:6px;">Entrada</th>
-            <th style="border:1px solid ${corBorda}; padding:6px;">Parcelamento</th>
-            <th style="border:1px solid ${corBorda}; padding:6px;">Total</th>
+          <tr>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Forma de pagamento</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Entrada %</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Entrada</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Parcelamento</th>
+            <th style="background:${corTabela}; color:#fff; border:1px solid ${corBorda}; padding:6px;">Total</th>
           </tr>
         </thead>
         <tbody>
