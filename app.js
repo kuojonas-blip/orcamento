@@ -644,6 +644,20 @@ function montarHtmlOrcamento() {
           text-align: center;
         }
 
+        /* CRÍTICO: sem isso, o padding/borda de cada célula soma POR CIMA da
+           largura definida (width:X%), fazendo a tabela vazar para fora da
+           página — principalmente visível em navegadores móveis (iOS). */
+        .doc-impresso table,
+        .doc-impresso th,
+        .doc-impresso td {
+          box-sizing: border-box;
+        }
+
+        .doc-impresso table {
+          table-layout: fixed;
+          width: 100%;
+        }
+
         /* Alinhamento simples: cabeçalho (logo + título) no início do
            documento, rodapé no final. Nada de position:fixed — em teste
            real esse truque não se comportou de forma confiável, então
