@@ -311,12 +311,14 @@
   </div>
 </div>
 
+</div>
+
 <!-- Área usada apenas na hora de imprimir/salvar como PDF (window.print).
-     Fica escondida na tela normal; a regra @media print no style.css
-     mostra só ela e esconde o resto da página ao imprimir. -->
+     Fica fora do .container de propósito: assim, ao imprimir, dá pra
+     esconder o .container inteiro (o formulário) com display:none sem
+     afetar essa área, evitando páginas em branco extras. -->
 <div id="areaImpressao">
   <div id="pdfConteudo"></div>
-</div>
 </div>
 
   <script src="https://unpkg.com/pizzip@3.1.8/dist/pizzip.min.js"></script>

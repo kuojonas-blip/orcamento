@@ -112,19 +112,30 @@ table th {
 }
 
 @media print {
-  body * {
-    visibility: hidden;
+  @page {
+    size: A4;
+    margin: 12mm;
   }
-  #areaImpressao,
-  #areaImpressao * {
-    visibility: visible;
+
+  /* Esconde o formulário inteiro (com display:none o espaço é
+     realmente recolhido, ao contrário de visibility:hidden) */
+  .container {
+    display: none !important;
   }
+
   #areaImpressao {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    display: block !important;
+    /* Sem isso, a maioria dos navegadores some com cores de fundo ao
+       imprimir, mesmo com a opção "Imprimir gráficos de fundo" marcada */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  #areaImpressao * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
 }
 .topo-logo {

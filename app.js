@@ -623,7 +623,7 @@ function montarHtmlOrcamento() {
   }).join("");
 
   return `
-    <div style="font-family: Arial, sans-serif; color:#000; font-size:12px; background:#fff; padding:20px; width:760px;">
+    <div style="font-family: Arial, sans-serif; color:#000; font-size:12px; background:#fff; padding:0; width:100%; box-sizing:border-box;">
       <div style="text-align:center; margin-bottom:20px;">
         <img src="logo.png" alt="Sinmag Brasil" style="max-width:220px; height:auto;" onerror="this.style.display='none'" />
         <h1 style="margin:8px 0 0; font-size:20px;">PROPOSTA COMERCIAL</h1>
