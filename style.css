@@ -86,62 +86,6 @@ table th {
   width: 100%;
 }
 
-.dica-pdf {
-  margin-top: 6px;
-  font-size: 12px;
-  color: #6b7280;
-  text-align: center;
-}
-
-.btn-pdf {
-  background: #b91c1c;
-}
-
-.btn-pdf:hover {
-  background: #991b1b;
-}
-
-.btn-pdf:disabled {
-  background: #d1d5db;
-  cursor: not-allowed;
-}
-
-/* Área usada só na hora de imprimir/salvar como PDF */
-#areaImpressao {
-  display: none;
-}
-
-@media print {
-  @page {
-    size: A4;
-    /* Margem 0 é a forma documentada pelo próprio Chrome de suprimir o
-       cabeçalho/rodapé automático (data/hora, título, URL, nº de página):
-       "If you set the margins on a page to 0 ... they won't display."
-       A margem visual do documento é recriada abaixo, via padding. */
-    margin: 0;
-  }
-
-  /* Esconde o formulário inteiro (com display:none o espaço é
-     realmente recolhido, ao contrário de visibility:hidden) */
-  .container {
-    display: none !important;
-  }
-
-  #areaImpressao {
-    display: block !important;
-    padding: 14mm 12mm;
-    box-sizing: border-box;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    color-adjust: exact !important;
-  }
-
-  #areaImpressao * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    color-adjust: exact !important;
-  }
-}
 .topo-logo {
   text-align: center;
   margin-bottom: 20px;
@@ -430,7 +374,7 @@ select {
     max-width: 100%;
   }
 
-  /* Botões Gerar Word / Gerar PDF empilhados e largura total */
+  /* Botão Gerar Word em largura total */
   .acoes {
     flex-direction: column;
   }
