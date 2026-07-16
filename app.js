@@ -570,6 +570,14 @@ function isIOS() {
   return /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 }
 
+function isInAppBrowser() {
+  // Navegadores embutidos (o WebView usado dentro do próprio app do
+  // WhatsApp/Instagram, não o Safari aberto a partir de um link deles).
+  // Foi NESSE contexto que o Blob perdia o tipo MIME e virava .zip.
+  const ua = window.navigator.userAgent || "";
+  return /FBAN|FBAV|Instagram|WhatsApp|Line\//i.test(ua);
+}
+
 function base64ParaBlob(base64Data, mimeType) {
   const byteChars = atob(base64Data);
   const byteNumbers = new Array(byteChars.length);
@@ -581,17 +589,18 @@ function base64ParaBlob(base64Data, mimeType) {
 }
 
 function downloadArquivo(base64Data, nome, mimeType) {
-  if (isIOS()) {
-    // iOS (incluindo navegadores embutidos como WhatsApp/Instagram) perde o
-    // tipo do arquivo ao abrir um blob: URL em nova aba, e o Safari acaba
-    // "adivinhando" pelos bytes que é um .zip. Um Data URI (base64) carrega
-    // o tipo junto com os dados, então navegar na MESMA aba resolve.
+  if (isIOS() && isInAppBrowser()) {
+    // Só nos navegadores embutidos (dentro do próprio app do WhatsApp/
+    // Instagram) usamos o Data URI: é onde o Blob perdia o tipo MIME e
+    // o Safari "adivinhava" que era um .zip.
     const dataUri = `data:${mimeType};base64,${base64Data}`;
     window.location.href = dataUri;
     return;
   }
 
-  // Demais navegadores: Blob + <a download> funciona normalmente
+  // Safari "de verdade" (aberto direto, fora do WebView embutido) e demais
+  // navegadores: Blob + <a download> é o jeito oficialmente suportado desde
+  // o iOS 13 e preserva nome de arquivo e extensão corretamente.
   const blob = base64ParaBlob(base64Data, mimeType);
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement("a");
